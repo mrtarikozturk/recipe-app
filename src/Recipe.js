@@ -10,4 +10,4 @@ const Recipe = (props) => {
     );
 }
 
-export default Recipe
+export default Recipe;

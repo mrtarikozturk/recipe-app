@@ -5,27 +5,38 @@ import './App.css';
 const App = () => {
 
   // Constants
-  const APP_ID = 'Write_Your_Api_Id';
-  const API_KEY = 'Write_Your_Api_Key';
+  const APP_ID = '6cc9781f';
+  const API_KEY = '7fe33b206ea1c37abb56ae1092bc83ea';
 
   //states
   const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState('');
+  const [query, setQuery] = useState('chicken');
 
   //useEffects
-  useEffect(() => getRecipes(), []);
+  useEffect(() => getRecipes(), [query]);
 
   //Fetch Data
   const getRecipes = async () => {
 
-    const response = await fetch(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${API_KEY}`);
+    const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${API_KEY}`);
     const data = await response.json();
     setRecipes(data.hits);
   }
 
+  const getSearch = (event) => {
+    setQuery(search);
+    event.preventDefault();
+  }
+
+  const updateInputText = (event) => {
+    setSearch(event.target.value);
+  }
+
   return (
     <div className="App">
-      <form className='search-form'>
-        <input className='search-bar' type='text' />
+      <form className='search-form' onSubmit={getSearch}>
+        <input className='search-bar' type='text' onChange={updateInputText} value={search} />
         <button className='search-button' type='submit'>Search</button>
       </form>
       {
