@@ -26,6 +26,7 @@ const App = () => {
 
   const getSearch = (event) => {
     setQuery(search);
+    setSearch('');
     event.preventDefault();
   }
 
@@ -39,11 +40,13 @@ const App = () => {
         <input className='search-bar' type='text' onChange={updateInputText} value={search} />
         <button className='search-button' type='submit'>Search</button>
       </form>
-      {
-        recipes.map((item, index) => (
-          <Recipe key={index} data={item.recipe} />
-        ))
-      }
+      <div className='recipes'>
+        {
+          recipes.map((item, index) => (
+            <Recipe key={index} data={item.recipe} />
+          ))
+        }
+      </div>
     </div>
   );
 }
