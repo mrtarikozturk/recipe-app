@@ -22,12 +22,18 @@ const App = () => {
     const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${API_KEY}`);
     const data = await response.json();
     setRecipes(data.hits);
+    console.log(recipes);
   }
 
   const getSearch = (event) => {
+    event.preventDefault();
+
+    if (!search) {
+      alert('Enter a word');
+      return;
+    }
     setQuery(search);
     setSearch('');
-    event.preventDefault();
   }
 
   const updateInputText = (event) => {
@@ -37,7 +43,7 @@ const App = () => {
   return (
     <div className="App">
       <form className='search-form' onSubmit={getSearch}>
-        <input className='search-bar' type='text' onChange={updateInputText} value={search} />
+        <input className='search-bar' type='text' onChange={updateInputText} value={search} placeholder='Search...' />
         <button className='search-button' type='submit'>Search</button>
       </form>
       <div className='recipes'>
