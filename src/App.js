@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Recipe from './Recipe';
+import Modal from './components/Modal/Modal';
 import './App.css';
 
 const App = () => {
@@ -12,6 +13,7 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [query, setQuery] = useState('chicken');
+  const [show, setShow] = useState(false);
 
   //useEffects
   useEffect(() => getRecipes(), [query]);
@@ -40,8 +42,13 @@ const App = () => {
     setSearch(event.target.value);
   }
 
+  const close = () => setShow(false);
+  const open = () => setShow(true);
+
+
   return (
     <div className="App">
+     
       <form className='search-form' onSubmit={getSearch}>
         <input className='search-bar' type='text' onChange={updateInputText} value={search} placeholder='Search...' />
         <button className='search-button' type='submit'>Search</button>
@@ -53,6 +60,8 @@ const App = () => {
           ))
         }
       </div>
+      <Modal isVisible={show} close={close} />
+      <button onClick={open}>Close</button>
     </div>
   );
 }
